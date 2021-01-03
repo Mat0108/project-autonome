@@ -45,9 +45,8 @@ void terrain_aleatoire(t_terrain *terrain)
 
 }
 
-void AffichageAllegro(t_terrain terrain)
+void AffichageAllegro(t_terrain terrain,int RT)
 {
-    int RT = 20;
     BITMAP *image;
     int i,j;
     char adress[100];
@@ -58,32 +57,54 @@ void AffichageAllegro(t_terrain terrain)
             switch(terrain.terrain[i][j])
             {
             case 0 :
-                image=load_bitmap("image/terre.bmp",NULL);
-                blit(image,screen,0,0,RT*i,RT*j,image->w, image->h);
+                rectfill(screen,RT*i,RT*j,RT*(i+1),RT*(j+1),makecol(106,61,51)); //terre
                 break;
             case 1 :
-                image=load_bitmap("image/arbre.bmp",NULL);
-                blit(image,screen,0,0,RT*i,RT*j,image->w, image->h);
-                //rectfill(screen,RT*i,RT*j,RT*(i+1),RT*(j+1),makecol(81,116,63));
+                rectfill(screen,RT*i,RT*j,RT*(i+1),RT*(j+1),makecol(81,116,63)); //arbre
                 break;
             case 2 :
-                image=load_bitmap("image/eau.bmp",NULL);
-                blit(image,screen,0,0,RT*i,RT*j,image->w, image->h);
+                rectfill(screen,RT*i,RT*j,RT*(i+1),RT*(j+1),makecol(40,67,141)); //eau
                 break;
             case 3 :
-                image=load_bitmap("image/feu.bmp",NULL);
-                blit(image,screen,0,0,RT*i,RT*j,image->w, image->h);
-                //rectfill(screen,RT*i,RT*j,RT*(i+1),RT*(j+1),makecol(255,0,0));
+                rectfill(screen,RT*i,RT*j,RT*(i+1),RT*(j+1),makecol(255,0,0)); //feu
                 break;
             case 4 :
-                image=load_bitmap("image/cendres.bmp",NULL);
-                blit(image,screen,0,0,RT*i,RT*j,image->w, image->h);
-                break;
+                rectfill(screen,RT*i,RT*j,RT*(i+1),RT*(j+1),makecol(159, 161, 165)); //cendres
+                 break;
             case 5 :
-                 image=load_bitmap("image/cendres eteintes.bmp",NULL);
-                blit(image,screen,0,0,RT*i,RT*j,image->w, image->h);
+                rectfill(screen,RT*i,RT*j,RT*(i+1),RT*(j+1),makecol(77, 79, 84)); //cendres éteintes
                 break;
             }
         }
     }
 }
+
+void gestion_feux(t_terrain terrain1, t_terrain *terrain2)
+{
+    int i,j;
+    for (i = 0;i<60;i++)
+    {
+        for (j=0;j<40;j++)
+        {
+            switch(terrain1.terrain[i][j])
+            {
+            case 3:
+                terrain2->terrain[i][j] = 4;
+                break;
+            case 4:
+                terrain2->terrain[i][j] = 5;
+                break;
+            case 1:
+                if (terrain1.terrain[i-1][j-1] == 3 || terrain1.terrain[i][j-1] == 3 || terrain1.terrain[i+i][j-1] == 3 || terrain1.terrain[i-1][j] == 3 || terrain1.terrain[i+1][j] == 3 || terrain1.terrain[i-1][j+1] == 3 || terrain1.terrain[i][j+1] == 3  || terrain1.terrain[i+1][j+1] == 3)
+                {
+                    terrain2->terrain[i][j] == 3;
+                    break;
+                }
+            default:
+                terrain2->terrain[i][j] = terrain1.terrain[i][j];
+                break;
+            }
+        }
+    }
+}
+

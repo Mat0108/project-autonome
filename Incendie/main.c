@@ -1,9 +1,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
 #include <allegro.h>
+#include <time.h>
+#include <process.h>
+#include <winalleg.h>
+#include <windows.h>
 #include "parcelles.h"
 
 
@@ -12,11 +15,12 @@ int main(int argc, char *argv[])
 {
     const int L = 40;
     const int C = 60;
-    const int RT = 20;
+    const int RT = 10;
 
     printf("Hello world!\n");
     t_parcelle parcelle = {"marron",1,1};
     t_terrain terrain;
+    t_terrain terrain2;
     printf("\n%s",parcelle.type);
 
     terrain_aleatoire(&terrain);
@@ -35,7 +39,8 @@ int main(int argc, char *argv[])
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    AffichageAllegro(terrain);
+    affichage_terrain(terrain);
+    AffichageAllegro(terrain,RT);
     readkey();
     return 0;
 }

@@ -16,5 +16,6 @@ struct t_terrain
 void affichage_terrain(t_terrain terrain);
 char couleur_aleatoire();
 void terrain_aleatoire(t_terrain *terrain);
-void AffichageAllegro(t_terrain terrain);
+void AffichageAllegro(t_terrain terrain,int RT);
+void gestion_feux(t_terrain terrain1, t_terrain *terrain2);
 #endif // __PARCELLES__
