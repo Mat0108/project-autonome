@@ -40,10 +40,9 @@ int main(int argc, char *argv[])
     }
     int rep = 1;
     int rep2 = 1;
-    printf("\n     Terre     |    Arbre     |      Eau     |      Feu     |   Cendres    |  C.eteintes");
+    printf("\n      Terre     |    Arbre     |      Eau     |      Feu     |   Cendres    |  C.eteintes");
     affichage_nb_case(terrain,rep2);
     AffichageAllegro(terrain,RT);
-    Sleep(10    000);
     while (rep == 1)
     {
         rep2++;

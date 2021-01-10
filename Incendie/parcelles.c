@@ -147,7 +147,7 @@ void affichage_nb_case(t_terrain terrain,int rep)
     }
     char a;
     a = '%';
-    printf("\n%d %4d %5.2f%c  | %4d %5.2f%c  | %4d %5.2f%c  ",rep,nb_terre, nb_terre/24.0,a,nb_arbre, nb_arbre/24.0,a,nb_eau,nb_eau/24.0,a);
+    printf("\n%2d %4d %5.2f%c  | %4d %5.2f%c  | %4d %5.2f%c  ",rep,nb_terre, nb_terre/24.0,a,nb_arbre, nb_arbre/24.0,a,nb_eau,nb_eau/24.0,a);
     printf("| %4d %5.2f%c  | %4d %5.2f%c  | %4d %5.2f%c",nb_feu,nb_feu/24.0,a,nb_cendres,nb_cendres/24.0,a,nb_cendres_eteintes,nb_cendres_eteintes/24.0,a);
 }
 
