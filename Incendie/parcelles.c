@@ -42,7 +42,7 @@ void terrain_aleatoire(t_terrain *terrain)
     }
 }
 
-void AffichageAllegro(t_terrain terrain,int RT)
+void AffichageAllegro(t_terrain terrain,int RT,int origin)
 {
     int i,j;
     for (i = 0;i<40;i++)
@@ -52,22 +52,22 @@ void AffichageAllegro(t_terrain terrain,int RT)
             switch(terrain.terrain[i][j])
             {
             case 0 :
-                rectfill(screen,RT*j,RT*i,RT*(j+1),RT*(i+1),makecol(106,61,51)); //terre
+                rectfill(screen,RT*(j+origin),RT*i,RT*(j+1+origin),RT*(i+1),makecol(106,61,51)); //terre
                 break;
             case 1 :
-                rectfill(screen,RT*j,RT*i,RT*(j+1),RT*(i+1),makecol(81,116,63)); //arbre
+                rectfill(screen,RT*(j+origin),RT*i,RT*(j+1+origin),RT*(i+1),makecol(81,116,63)); //arbre
                 break;
             case 2 :
-                rectfill(screen,RT*j,RT*i,RT*(j+1),RT*(i+1),makecol(40,67,141)); //eau
+                rectfill(screen,RT*(j+origin),RT*i,RT*(j+1+origin),RT*(i+1),makecol(40,67,141)); //eau
                 break;
             case 3 :
-                rectfill(screen,RT*j,RT*i,RT*(j+1),RT*(i+1),makecol(255,0,0)); //feu
+                rectfill(screen,RT*(j+origin),RT*i,RT*(j+1+origin),RT*(i+1),makecol(255,0,0)); //feu
                 break;
             case 4 :
-                rectfill(screen,RT*j,RT*i,RT*(j+1),RT*(i+1),makecol(159, 161, 165)); //cendres
+                rectfill(screen,RT*(j+origin),RT*i,RT*(j+1+origin),RT*(i+1),makecol(159, 161, 165)); //cendres
                  break;
             case 5 :
-                rectfill(screen,RT*j,RT*i,RT*(j+1),RT*(i+1),makecol(77, 79, 84)); //cendres éteintes
+                rectfill(screen,RT*(j+origin),RT*i,RT*(j+1+origin),RT*(i+1),makecol(77, 79, 84)); //cendres éteintes
                 break;
             }
         }
