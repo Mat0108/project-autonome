@@ -109,6 +109,12 @@ void gestion_t1(t_terrain *terrain1,t_terrain terrain2)
     }
 }
 
+void fond_menu(int RT,int origin)
+{
+     rectfill(screen,0,0,RT*origin,RT*40,makecol(70,70, 70));
+     rectfill(screen,RT*origin,0,RT*origin-0.05,RT*40,makecol(1, 1, 1));
+}
+
 void affichage_nb_case(t_terrain terrain,int rep)
 {
     int nb_terre = 0;
@@ -149,5 +155,23 @@ void affichage_nb_case(t_terrain terrain,int rep)
     a = '%';
     printf("\n%2d %4d %5.2f%c  | %4d %5.2f%c  | %4d %5.2f%c  ",rep,nb_terre, nb_terre/24.0,a,nb_arbre, nb_arbre/24.0,a,nb_eau,nb_eau/24.0,a);
     printf("| %4d %5.2f%c  | %4d %5.2f%c  | %4d %5.2f%c",nb_feu,nb_feu/24.0,a,nb_cendres,nb_cendres/24.0,a,nb_cendres_eteintes,nb_cendres_eteintes/24.0,a);
-}
+    int origin = 15*3;
+    fond_menu(14,10);
+    textprintf_ex(screen,font,10,origin,makecol(255,255,255),-1,"Terre : %-3d",nb_terre);
+    textprintf_ex(screen,font,74,origin+10,makecol(255,255,255),-1,"%-5.2f %c",nb_terre/24.0,a);
 
+    textprintf_ex(screen,font,10,origin+50,makecol(255,255,255),-1,"Arbre : %-3d",nb_arbre);
+    textprintf_ex(screen,font,74,origin+60,makecol(255,255,255),-1,"%-5.2f %c",nb_arbre/24.0,a);
+
+    textprintf_ex(screen,font,10,origin+100,makecol(255,255,255),-1,"Eau : %-3d",nb_eau);
+    textprintf_ex(screen,font,58,origin+110,makecol(255,255,255),-1,"%-5.2f %c",nb_eau/24.0,a);
+
+    textprintf_ex(screen,font,10,origin+150,makecol(255,255,255),-1,"Feu : %-3d",nb_feu);
+    textprintf_ex(screen,font,58,origin+160,makecol(255,255,255),-1,"%-5.2f %c",nb_feu/24.0,a);
+
+    textprintf_ex(screen,font,10,origin+200,makecol(255,255,255),-1,"Cendres : ");
+    textprintf_ex(screen,font,19,origin+210,makecol(255,255,255),-1,"%-4d %-5.2f %c",nb_cendres, nb_cendres/24.0,a);
+
+    textprintf_ex(screen,font,10,origin+250,makecol(255,255,255),-1,"C. eteintes: ");
+    textprintf_ex(screen,font,12,origin+260,makecol(255,255,255),-1," %-4d %-5.2f %c",nb_cendres_eteintes, nb_cendres_eteintes/24.0,a);
+}

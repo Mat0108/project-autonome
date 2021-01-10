@@ -42,9 +42,11 @@ int main(int argc, char *argv[])
         allegro_exit();
         exit(EXIT_FAILURE);
     }
+    fond_menu(RT,origin);
     printf("\n      Terre     |    Arbre     |      Eau     |      Feu     |   Cendres    |  C.eteintes");
     affichage_nb_case(terrain,rep2);
     AffichageAllegro(terrain,RT,origin);
+
     while (rep == 1)
     {
         rep2++;
