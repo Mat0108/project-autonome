@@ -40,3 +40,25 @@
 	<allegro.h>
 	"parcelles.h"
 
+1610626027 source:c:\users\matthieu\documents\github\project-autonome\incendie\parcelles.c
+	<stdbool.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<allegro.h>
+	"parcelles.h"
+
+1610625163 c:\users\matthieu\documents\github\project-autonome\incendie\parcelles.h
+
+1610625379 source:c:\users\matthieu\documents\github\project-autonome\incendie\main.c
+	<stdbool.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<allegro.h>
+	<time.h>
+	<process.h>
+	<winalleg.h>
+	<windows.h>
+	"parcelles.h"
+

@@ -78,7 +78,7 @@ int gestion_feux(t_terrain terrain1, t_terrain *terrain2)
 {
     int i,j;
     int xi[8] = {-1,-1,-1,0,0,1,1,1};
-    int yi[8] = {-1,0,1,-1,1,-1,0,-1};
+    int yi[8] = {-1,0,1,-1,1,-1,0,1};
     int nb_feu = 0;
     for (i = 0;i<40;i++)
     {
@@ -174,4 +174,43 @@ void affichage_nb_case(t_terrain terrain,int rep)
 
     textprintf_ex(screen,font,10,origin+250,makecol(255,255,255),-1,"C. eteintes: ");
     textprintf_ex(screen,font,12,origin+260,makecol(255,255,255),-1," %-4d %-5.2f %c",nb_cendres_eteintes, nb_cendres_eteintes/24.0,a);
+}
+void menu_start(int RT,int origin)
+{
+    char adress[100];
+    BITMAP *image;
+
+    rectfill(screen,0,0,RT*(origin+60),RT*40,makecol(70,70, 70));
+    sprintf(adress,"image/menu_0.bmp");
+    image = load_bitmap(adress,NULL);
+    blit(image,screen,0,0,90,128,image->w, image->h);
+    while (!key[KEY_SPACE]){}
+}
+
+void mode1_generation(t_terrain *terrain)
+{
+    int i,j;
+    srand(time(NULL));
+    for (i=0;i<40;i++)
+    {
+        for (j=0;j<60;j++)
+        {
+            terrain->terrain[i][j] = rand()%3;
+        }
+    }
+}
+void mode1_clic(t_terrain *terrain)
+{
+    int condition = 1;
+    show_mouse(screen);
+    while (condition == 1)
+    {
+        textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x/15-9,mouse_y/15);
+        if (mouse_b & 1 || mouse_b & 2)
+        {
+            terrain->terrain[mouse_y/14][mouse_x/14-10] = 3;
+            condition = 0;
+        }
+    }
+    AffichageAllegro(*terrain,14,10);
 }

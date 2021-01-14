@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <allegro.h>
+
 #include <time.h>
 #include <process.h>
 #include <winalleg.h>
@@ -26,12 +27,13 @@ int main(int argc, char *argv[])
     t_terrain terrain;
     t_terrain terrain2;
 
-    terrain_aleatoire(&terrain);
-
+    //terrain_aleatoire(&terrain);
+    mode1_generation(&terrain);
 
     allegro_init();
     install_keyboard();
     install_mouse();
+
     set_color_depth(32);
     //creation de la fenetre d'affichagge Allegro
     int Ecran_X = RT*(60+origin);
@@ -43,11 +45,13 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     fond_menu(RT,origin);
+
+    menu_start(RT,origin);
     printf("\n      Terre     |    Arbre     |      Eau     |      Feu     |   Cendres    |  C.eteintes");
     affichage_nb_case(terrain,rep2);
     AffichageAllegro(terrain,RT,origin);
-
-    while (rep == 1)
+    mode1_clic(&terrain);
+    while (rep == 1 )
     {
         rep2++;
         if (nb_feu == 0) rep = 0;
@@ -57,7 +61,7 @@ int main(int argc, char *argv[])
         AffichageAllegro(terrain,RT,origin);
         affichage_nb_case(terrain,rep2);
     }
-
+    while (!key[KEY_ESC])
     readkey();
     return 0;
 }
