@@ -205,7 +205,6 @@ void mode1_clic(t_terrain *terrain)
     show_mouse(screen);
     while (condition == 1)
     {
-        textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x/15-9,mouse_y/15);
         if (mouse_b & 1 || mouse_b & 2)
         {
             terrain->terrain[mouse_y/14][mouse_x/14-10] = 3;

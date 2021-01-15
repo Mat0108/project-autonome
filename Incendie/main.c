@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         if (nb_feu == 0) rep = 0;
         nb_feu = gestion_feux(terrain,&terrain2);
         gestion_t1(&terrain,terrain2);
-        Sleep(3000);
+        Sleep(300);
         AffichageAllegro(terrain,RT,origin);
         affichage_nb_case(terrain,rep2);
     }
