@@ -24,4 +24,5 @@ void affichage_nb_case(t_terrain terrain,int rep);
 void menu_start(int RT,int origin);
 void mode1_generation(t_terrain *terrain);
 void mode1_clic(t_terrain *terrain);
+int switch_menu();
 #endif // __PARCELLES__

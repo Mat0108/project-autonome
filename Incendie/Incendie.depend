@@ -1,24 +1,5 @@
 # depslib dependency file v1.0
-1607615523 source:c:\users\matthieu\desktop\divers\incendie\main.c
-	<stdbool.h>
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-	<string.h>
-	<allegro.h>
-	"parcelles.h"
-
-1607613573 c:\users\matthieu\desktop\divers\incendie\parcelles.h
-
-1607616547 source:c:\users\matthieu\desktop\divers\incendie\parcelles.c
-	<stdbool.h>
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-	<allegro.h>
-	"parcelles.h"
-
-1610290682 source:c:\users\matth\documents\github\project-autonome\incendie\main.c
+1610883407 source:c:\users\matth\documents\github\project-autonome\incendie\main.c
 	<stdbool.h>
 	<stdio.h>
 	<stdlib.h>
@@ -30,35 +11,13 @@
 	<windows.h>
 	"parcelles.h"
 
-1610290673 c:\users\matth\documents\github\project-autonome\incendie\parcelles.h
+1610883237 c:\users\matth\documents\github\project-autonome\incendie\parcelles.h
 
-1610288751 source:c:\users\matth\documents\github\project-autonome\incendie\parcelles.c
+1610883272 source:c:\users\matth\documents\github\project-autonome\incendie\parcelles.c
 	<stdbool.h>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<allegro.h>
-	"parcelles.h"
-
-1610626027 source:c:\users\matthieu\documents\github\project-autonome\incendie\parcelles.c
-	<stdbool.h>
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-	<allegro.h>
-	"parcelles.h"
-
-1610625163 c:\users\matthieu\documents\github\project-autonome\incendie\parcelles.h
-
-1610625379 source:c:\users\matthieu\documents\github\project-autonome\incendie\main.c
-	<stdbool.h>
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<allegro.h>
-	<time.h>
-	<process.h>
-	<winalleg.h>
-	<windows.h>
 	"parcelles.h"
 

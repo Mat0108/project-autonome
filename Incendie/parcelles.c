@@ -179,7 +179,6 @@ void menu_start(int RT,int origin)
 {
     char adress[100];
     BITMAP *image;
-
     rectfill(screen,0,0,RT*(origin+60),RT*40,makecol(70,70, 70));
     sprintf(adress,"image/menu_0.bmp");
     image = load_bitmap(adress,NULL);
@@ -212,4 +211,53 @@ void mode1_clic(t_terrain *terrain)
         }
     }
     AffichageAllegro(*terrain,14,10);
+}
+
+
+int switch_menu()
+{
+    char adress[100];
+    BITMAP *image;
+    rectfill(screen,0,0,14*(10+60),14*40,makecol(70,70, 70));
+    sprintf(adress,"image/menu_1.bmp");
+    image = load_bitmap(adress,NULL);
+    blit(image,screen,0,0,45,100,image->w, image->h);
+    sprintf(adress,"image/menu_2.bmp");
+    image = load_bitmap(adress,NULL);
+    blit(image,screen,0,0,245*3-200,100,image->w, image->h);
+    sprintf(adress,"image/menu_3.bmp");
+    image = load_bitmap(adress,NULL);
+    blit(image,screen,0,0,45,300,image->w, image->h);
+    sprintf(adress,"image/menu_4.bmp");
+    image = load_bitmap(adress,NULL);
+    blit(image,screen,0,0,245*3-200,300,image->w, image->h);
+
+    int condition = 1;
+    show_mouse(screen);
+
+    while (condition == 1)
+    {
+        textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
+
+        if ((mouse_b & 1 || mouse_b & 2) && mouse_x < 480 && mouse_y<280)
+        {
+            return 1;
+            condition = 0;
+        }
+        if ((mouse_b & 1 || mouse_b & 2) && mouse_x > 480 && mouse_y<280)
+        {
+            return 2;
+            condition = 0;
+        }
+        if ((mouse_b & 1 || mouse_b & 2) && mouse_x < 480 && mouse_y>280)
+        {
+            return 3;
+            condition = 0;
+        }
+        if ((mouse_b & 1 || mouse_b & 2) && mouse_x > 480 && mouse_y>280)
+        {
+            return 4;
+            condition = 0;
+        }
+    }
 }

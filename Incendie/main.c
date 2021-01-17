@@ -27,8 +27,6 @@ int main(int argc, char *argv[])
     t_terrain terrain;
     t_terrain terrain2;
 
-    //terrain_aleatoire(&terrain);
-    mode1_generation(&terrain);
 
     allegro_init();
     install_keyboard();
@@ -47,17 +45,21 @@ int main(int argc, char *argv[])
     fond_menu(RT,origin);
 
     menu_start(RT,origin);
+    int choix_menu = switch_menu();
+    if (choix_menu == 1) terrain_aleatoire(&terrain);
+    if (choix_menu == 2)mode1_generation(&terrain);
+
     printf("\n      Terre     |    Arbre     |      Eau     |      Feu     |   Cendres    |  C.eteintes");
     affichage_nb_case(terrain,rep2);
     AffichageAllegro(terrain,RT,origin);
-    mode1_clic(&terrain);
+    if (choix_menu == 2)mode1_clic(&terrain);
     while (rep == 1 )
     {
         rep2++;
         if (nb_feu == 0) rep = 0;
         nb_feu = gestion_feux(terrain,&terrain2);
         gestion_t1(&terrain,terrain2);
-        Sleep(300);
+        Sleep(1000);
         AffichageAllegro(terrain,RT,origin);
         affichage_nb_case(terrain,rep2);
     }
