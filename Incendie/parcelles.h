@@ -22,7 +22,10 @@ void gestion_t1(t_terrain *terrain1,t_terrain terrain2);
 void fond_menu(int RT,int origin);
 void affichage_nb_case(t_terrain terrain,int rep);
 void menu_start(int RT,int origin);
-void mode1_generation(t_terrain *terrain);
-void mode1_clic(t_terrain *terrain);
+void mode2_generation(t_terrain *terrain);
+void mode2_clic(t_terrain *terrain);
 int switch_menu();
+int calcul_nb_arbre(t_terrain terrain);
+void mode3(int nb_simu);
+void mode4(int nb_simu);
 #endif // __PARCELLES__

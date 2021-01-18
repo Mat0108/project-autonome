@@ -6,7 +6,7 @@
 #include "parcelles.h"
 
 
-
+//permet d'afficher le terrain dans la console
 void affichage_terrain(t_terrain terrain)
 {
     for(int i=0;i<40;i++)
@@ -18,7 +18,7 @@ void affichage_terrain(t_terrain terrain)
         }
     }
 }
-
+//permet de renvoie une couleur au hasard
 char couleur_aleatoire()
 {
     char couleur[20][6] = {"Terre","Arbre","Eau","Feu","Cendres","Cendres éteintes"};
@@ -28,11 +28,10 @@ char couleur_aleatoire()
     printf("\n%s",couleur[x]);
     return couleur[x];
 }
-
+//permet de generer le terrain
 void terrain_aleatoire(t_terrain *terrain)
 {
     int i,j;
-    srand(time(NULL));
     for (i=0;i<40;i++)
     {
         for (j=0;j<60;j++)
@@ -41,7 +40,7 @@ void terrain_aleatoire(t_terrain *terrain)
         }
     }
 }
-
+//affichage du terrain dans allegro
 void AffichageAllegro(t_terrain terrain,int RT,int origin)
 {
     int i,j;
@@ -73,7 +72,7 @@ void AffichageAllegro(t_terrain terrain,int RT,int origin)
         }
     }
 }
-
+//gerer la progression du feux
 int gestion_feux(t_terrain terrain1, t_terrain *terrain2)
 {
     int i,j;
@@ -95,7 +94,7 @@ int gestion_feux(t_terrain terrain1, t_terrain *terrain2)
     }
     return nb_feu;
 }
-
+//permet de modifier le terrain 1 une fois que les regle de gestion du feux ont été appliqué sur le terrain 2
 void gestion_t1(t_terrain *terrain1,t_terrain terrain2)
 {
     int i,j;
@@ -114,7 +113,7 @@ void fond_menu(int RT,int origin)
      rectfill(screen,0,0,RT*origin,RT*40,makecol(70,70, 70));
      rectfill(screen,RT*origin,0,RT*origin-0.05,RT*40,makecol(1, 1, 1));
 }
-
+//affichage sur le nombre de case par type
 void affichage_nb_case(t_terrain terrain,int rep)
 {
     int nb_terre = 0;
@@ -175,6 +174,8 @@ void affichage_nb_case(t_terrain terrain,int rep)
     textprintf_ex(screen,font,10,origin+250,makecol(255,255,255),-1,"C. eteintes: ");
     textprintf_ex(screen,font,12,origin+260,makecol(255,255,255),-1," %-4d %-5.2f %c",nb_cendres_eteintes, nb_cendres_eteintes/24.0,a);
 }
+
+//premier menu
 void menu_start(int RT,int origin)
 {
     char adress[100];
@@ -185,11 +186,10 @@ void menu_start(int RT,int origin)
     blit(image,screen,0,0,90,128,image->w, image->h);
     while (!key[KEY_SPACE]){}
 }
-
-void mode1_generation(t_terrain *terrain)
+//mode 2 de gestion de feu
+void mode2_generation(t_terrain *terrain)
 {
     int i,j;
-    srand(time(NULL));
     for (i=0;i<40;i++)
     {
         for (j=0;j<60;j++)
@@ -198,7 +198,8 @@ void mode1_generation(t_terrain *terrain)
         }
     }
 }
-void mode1_clic(t_terrain *terrain)
+//permet de choisir quel case on choisi d'enflammer
+void mode2_clic(t_terrain *terrain)
 {
     int condition = 1;
     show_mouse(screen);
@@ -213,7 +214,7 @@ void mode1_clic(t_terrain *terrain)
     AffichageAllegro(*terrain,14,10);
 }
 
-
+//permet de le choix du mode de simulation
 int switch_menu()
 {
     char adress[100];
@@ -237,8 +238,6 @@ int switch_menu()
 
     while (condition == 1)
     {
-        textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
-
         if ((mouse_b & 1 || mouse_b & 2) && mouse_x < 480 && mouse_y<280)
         {
             return 1;
@@ -261,3 +260,127 @@ int switch_menu()
         }
     }
 }
+//permet de retourner le nombre de case de type arbre
+int calcul_nb_arbre(t_terrain terrain)
+{
+    int nb_arbre = 0;
+    for (int j=0;j<40;j++)
+    {
+        for (int k=0;k<60;k++)
+        {
+            if(terrain.terrain[j][k] == 1) nb_arbre++;
+        }
+    }
+    return nb_arbre;
+}
+//mode 3 qui permet de simuler le mode 1
+void mode3(int nb_simu)
+{
+    float nb_arbre_init=0.0;
+    int nb_arbre=0;
+    float nb_arbre_moy=0;
+    int max_nb_arbre = 0;
+    float max_arbre_moy = 0;
+    int min_nb_arbre = 1000;
+    float min_arbre_moy = 1000;
+    float moyenne_arbre = 0;
+    int rep;
+    int rep2;
+    int max_rep = 0;
+    int min_rep = 10;
+    float moyenne_rep = 0;
+    int nb_feu=0;
+
+
+    srand(time(NULL));
+    t_terrain terrain1,terrain2;
+    for (int i = 0;i<nb_simu;i++)
+    {
+        rep = 1;
+        rep2 = 0;
+        terrain_aleatoire(&terrain1);
+        nb_arbre_init = calcul_nb_arbre(terrain1);
+        while (rep == 1 )
+        {
+            rep2++;
+            if (nb_feu == 0) rep = 0;
+            nb_feu = gestion_feux(terrain1,&terrain2);
+            gestion_t1(&terrain1,terrain2);
+        }
+        nb_arbre = calcul_nb_arbre(terrain1);
+        nb_arbre_moy = 100*nb_arbre/nb_arbre_init;
+        if (nb_arbre>max_nb_arbre) {max_arbre_moy = nb_arbre_moy;max_nb_arbre=nb_arbre;}
+        if (nb_arbre<min_nb_arbre) {min_arbre_moy = nb_arbre_moy;min_nb_arbre=nb_arbre;}
+        if (rep2>max_rep) max_rep = rep2;
+        if (rep2<min_rep) min_rep = rep2;
+        moyenne_arbre = moyenne_arbre+nb_arbre_moy;
+        moyenne_rep = moyenne_rep + rep2;
+        printf("\n %d %-2.0f %-2d %-2.2f %-2d",i,nb_arbre_init,nb_arbre,nb_arbre_moy,rep2);
+    }
+    char a;
+    a = '%';
+    printf("\n\n\n Le nombre moyen d'arbre est %2.2f %c",moyenne_arbre/nb_simu,a);
+    printf("\n Le nombre maximun d'arbre est %d soit %2.2f %c",max_nb_arbre,max_arbre_moy,a);
+    printf("\n Le nombre minimun d'arbre est %d soit %2.2f %c",min_nb_arbre,min_arbre_moy,a);
+
+    printf("\n\n Le nombre moyen de repition est %2.2f",moyenne_rep/nb_simu);
+    printf("\n Le nombre maximun de repition est %d",max_rep);
+    printf("\n Le nombre minimun de repition est %d", min_rep);
+}
+
+//mode 4 qui permet de simuler le mode 2 NON FONCTIONNEL A 100%
+void mode4(int nb_simu)
+{
+    float nb_arbre_init=0.0;
+    int nb_arbre=0;
+    float nb_arbre_moy=0;
+    int max_nb_arbre = 0;
+    float max_arbre_moy = 0;
+    int min_nb_arbre = 100;
+    float min_arbre_moy = 0;
+    float moyenne_arbre = 0;
+    int rep;
+    int rep2;
+    int max_rep = 0;
+    int min_rep = 10;
+    float moyenne_rep = 0;
+    int nb_feu=0;
+
+    srand(time(NULL));
+    t_terrain terrain1,terrain2;
+    for (int i = 0;i<nb_simu;i++)
+    {
+        rep = 1;
+        rep2 = 0;
+        mode2_generation(&terrain1);
+        terrain1.terrain[20][30] = 3;
+        nb_arbre_init = calcul_nb_arbre(terrain1);
+        while (rep == 1 )
+        {
+            rep2++;
+            if (nb_feu == 0) rep = 0;
+            nb_feu = gestion_feux(terrain1,&terrain2);
+            gestion_t1(&terrain1,terrain2);
+        }
+        nb_arbre = calcul_nb_arbre(terrain1);
+        nb_arbre_moy = 100*nb_arbre/nb_arbre_init;
+        if (nb_arbre>max_nb_arbre) {max_arbre_moy = nb_arbre_moy;max_nb_arbre=nb_arbre;}
+        if (nb_arbre<min_nb_arbre) {min_arbre_moy = nb_arbre_moy;min_nb_arbre=nb_arbre;}
+        if (rep2>max_rep) max_rep = rep2;
+        if (rep2<min_rep) min_rep = rep2;
+        moyenne_arbre = moyenne_arbre+nb_arbre_moy;
+        moyenne_rep = moyenne_rep + rep2;
+        printf("\n %d %-2.0f %-2d %-2.2f %-2d",i,nb_arbre_init,nb_arbre,nb_arbre_moy,rep2);
+    }
+    char a;
+    a = '%';
+    printf("\n\n\n Le nombre moyen d'arbre est %2.2f %c",moyenne_arbre/nb_simu,a);
+    printf("\n Le nombre maximun d'arbre est %d soit %2.2f %c",max_nb_arbre,max_arbre_moy,a);
+    printf("\n Le nombre minimun d'arbre est %d soit %2.2f %c",min_nb_arbre,min_arbre_moy,a);
+
+    printf("\n\n Le nombre moyen de repition est %2.2f",moyenne_rep/nb_simu);
+    printf("\n Le nombre maximun de repition est %d",max_rep);
+    printf("\n Le nombre minimun de repition est %d", min_rep);
+}
+
+
